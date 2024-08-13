@@ -3,22 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
     <title>Diario de Bordo</title>
 </head>
 
 <body>
     <main>
         <div id="letra">
-            <h1 id="l1">Login:</h1>
+            <h1 id="l1"></h1>
             <div id="central">
+                <div id="logoSenai"></div>
                 <form action="/logar" method="post">
-                    <label for="ra"> RA:</label> 
-                    <input type="text" id="ra" name="ra" maxlength="8" required>
-                    <input id="envia" type="submit" value="Enviar"> 
+                    <div id="input-group">
+                        <label for="ra" id="label-ra">RA:</label>
+                        <input type="text" id="ra" name="ra" maxlength="8" required>
+                    </div>
+                    <input id="envia" type="submit" value="Enviar">
+                    <p id="signup">
+                        Não possui conta? <a href="{{url_for('cadastrar_aluno')}}" id="signup-link">Cadastre-se aqui</a>
+                    </p>
                 </form>
             </div>
+            
         </div>
     </main>
+
+
 </body>
 </html>

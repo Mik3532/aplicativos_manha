@@ -1,0 +1,175 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box; /* Garante que padding e border sejam incluídos nas dimensões dos elementos */
+}
+
+main {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(fundo.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#central {
+    width: 450px;
+    height: 300px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: solid 3px;
+    border-radius: 15px;
+}
+
+#logoSenai {
+    width: 250px;
+    height: 50px;
+    background-image: url(sesi-senai-logos.svg);
+    background-size: cover;
+    margin-bottom: 20px;
+}
+
+#central:hover {
+    background-color: rgba(147, 156, 173, 0.651);
+}
+
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#input-group {
+    width: 80%;
+    display: flex;
+    align-items: center; /* Alinha o rótulo e o input verticalmente */
+    margin-bottom: 10px;
+}
+
+#label-ra {
+    margin-right: 10px; /* Espaço entre o rótulo e o input */
+    color: white;
+    font-size: 16px;
+}
+
+input[type="text"],
+input[type="number"] {
+    flex: 1; /* Faz o input ocupar o restante da linha */
+    padding: 10px;
+    margin: 10px 0;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+    border-color: white;
+}
+
+input[type="submit"] {
+    width: 80%;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: rgba(167, 16, 16, 0.8);
+    border: none;
+    border-radius: 30px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: rgba(167, 16, 16, 1);
+}
+
+#signup {
+    color: white;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+#signup-link {
+    color: #00bfff; /* Cor azul clara para o link */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#signup-link:hover {
+    text-decoration: underline;
+}
+
+/* Novo estilo para o formulário de cadastro */
+.form-container {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h3 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-group {
+    width: 80%;
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+    border-color: #007bff; /* Cor da borda ao focar no input */
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #891c1c;
+    border: none;
+    border-radius: 4px;
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #218838; /* Cor do botão ao passar o mouse */
+}
