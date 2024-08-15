@@ -16,13 +16,19 @@
                 <div id="logoSenai"></div>
                 <form action="/logar" method="post">
                     <div id="input-group">
-                        <label for="ra" id="label-ra">RA:</label>
+                        <label for="ra" id="ra">RA:</label>
                         <input type="text" id="ra" name="ra" maxlength="8" required>
                     </div>
                     <input id="envia" type="submit" value="Enviar">
                     <p id="signup">
                         Não possui conta? <a href="{{url_for('cadastrar_aluno')}}" id="signup-link">Cadastre-se aqui</a>
                     </p>
+                    {% if mensagem %}
+                    <div class="mensagem">
+                        {{mensagem}}
+                    </div>
+                    {% endif %}
+
                 </form>
             </div>
             
