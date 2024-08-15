@@ -3,35 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Cadastro de Aluno</title>
-    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Cadastro de Aluno</title>
 </head>
 <body>
     <main>
         <div class="form-container">
-            <h3>Registro de Cadastro de Aluno</h3>
-
-            <form action="/registrar" method="post">
+            <h3>Cadastro de Aluno</h3>
+            <form action="/criaraluno" method="POST">
                 <div class="form-group">
                     <label for="ra">RA:</label>
                     <input type="text" id="ra" name="ra" maxlength="8" required>
                 </div>
-
                 <div class="form-group">
                     <label for="nome">Nome:</label>
                     <input type="text" id="nome" name="nome" maxlength="80" required>
                 </div>
-
                 <div class="form-group">
                     <label for="tempoestudo">Tempo de Estudo (em horas):</label>
-                    <input type="number" id="tempoestudo" name="tempoestudo" maxlength="10" required>
+                    <input type="number" id="tempoestudo" name="tempoestudo" required>
                 </div>
-
                 <div class="form-group">
                     <label for="rendafamilia">Renda Familiar:</label>
-                    <input type="number" id="rendafamilia" name="rendafamilia" maxlength="10" required>
+                    <input type="number" id="rendafamilia" name="rendafamilia" required>
                 </div>
-
                 <input id="registra" type="submit" value="Registrar">
             </form>
         </div>

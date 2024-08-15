@@ -1,34 +1,15 @@
-
-from flask import Flask, render_template, redirect, request, session
-
-# Importa as bibliotecas Flask, render_template (para renderizar templates HTML),
-# redirect (para redirecionamentos), request (para lidar com dados enviados via POST),
-# e session (para lidar com sessões de usuário).
-
-from flask_sqlalchemy import SQLAlchemy
-
-#importa a função "sesionmake", que é usada para criar  uma
+from flask import Flask, render_template, redirect, request
+from sqlalchemy import create_engine, MetaData
+from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import sessionmaker
 
-#importa as funçoes 'Create_engine' para estabelecer uma
-
-from sqlalchemy import create_engine, MetaData
-
-#importa a função "automap_base", que é usada para refletir
-
-from sqlalchemy.ext.automap import automap_base
-from aluno import Aluno
-
-
-
 app = Flask(__name__)
-# Cria uma instância da aplicação Flask.
 
 import urllib.parse
 
+# Configuração da conexão com o banco de dados
 user = 'root'
 password = urllib.parse.quote_plus('senai@123')
-
 host = 'localhost'
 database = 'projetodiario1'
 connection_string = f'mysql+pymysql://{user}:{password}@{host}/{database}'
@@ -42,13 +23,12 @@ metadata.reflect(engine)
 Base = automap_base(metadata=metadata)
 Base.prepare()
 
-# Acessando a tabela 'vitorias' mapeada
+# Acessando a tabela 'aluno' mapeada
 Aluno = Base.classes.aluno
 
 # Criar a sessão do SQLAlchemy
 Session = sessionmaker(bind=engine)
 session = Session()
-
 
 @app.route('/')
 def index():
@@ -93,17 +73,17 @@ def criar():
     # Ao acessar a rota '/criaraluno' via método POST, a função 'criar' é chamada.
     # Ela captura os dados enviados pelo formulário: RA, nome, tempo de estudo e renda familiar.
 
-    aluno = aluno(ra=ra, nome=nome, tempoestudo=tempoestudo, rendafamiliar=rendafamiliar)
-    # Cria uma nova instância de um objeto 'aluno' (provavelmente uma classe definida em outra parte do código).
+    novo_aluno = Aluno(ra=ra, nome=nome, tempoestudo=tempoestudo, rendafamiliar=rendafamiliar)
+    # Cria uma nova instância de um objeto 'Aluno' (a classe 'Aluno' é refletida do banco de dados).
     # Essa instância é preenchida com os dados recebidos do formulário.
 
-    session.add(Aluno)
+    session.add(novo_aluno)
     session.commit()
     # Adiciona o novo aluno ao banco de dados e salva as alterações usando 'session.add' e 'session.commit'.
 
-    mensagem = "cadastro efetuado com sucesso"
-    return render_template('index.html', msgbanco=mensagem)
-    # Após o cadastro ser bem-sucedido, uma mensagem de sucesso é enviada de volta para a página inicial.
+    mensagem = "Cadastro efetuado com sucesso"
+    return redirect('/')
+    # Após o cadastro ser bem-sucedido, a página inicial é exibida.
 
 if __name__ == "__main__":
     app.run(debug=True)
