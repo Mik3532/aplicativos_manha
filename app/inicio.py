@@ -2,6 +2,7 @@ from flask import Flask, render_template, redirect, request
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import sessionmaker
+from aluno import Aluno
 
 app = Flask(__name__)
 
@@ -64,25 +65,25 @@ def diariobordo():
 # Define a rota '/diariobordo', que renderiza a página 'diariobordo.html'.
 # Esta rota pode ser usada para mostrar o diário de bordo de um aluno logado.
 
-@app.route('/criaraluno', methods=['POST'])
+@app.route('/novoaluno', methods=['POST'])
 def criar():
     ra = request.form['ra']
-    nome = request.form['nome']
+    Nome = request.form['Nome']
     tempoestudo = int(request.form['tempoestudo'])
     rendafamiliar = float(request.form['rendafamiliar'])
     # Ao acessar a rota '/criaraluno' via método POST, a função 'criar' é chamada.
     # Ela captura os dados enviados pelo formulário: RA, nome, tempo de estudo e renda familiar.
 
-    novo_aluno = Aluno(ra=ra, nome=nome, tempoestudo=tempoestudo, rendafamiliar=rendafamiliar)
+    aluno = Aluno(ra=ra, Nome=Nome, tempoestudo=tempoestudo, rendafamiliar=rendafamiliar)
     # Cria uma nova instância de um objeto 'Aluno' (a classe 'Aluno' é refletida do banco de dados).
     # Essa instância é preenchida com os dados recebidos do formulário.
 
-    session.add(novo_aluno)
+    session.add(aluno)
     session.commit()
     # Adiciona o novo aluno ao banco de dados e salva as alterações usando 'session.add' e 'session.commit'.
 
     mensagem = "Cadastro efetuado com sucesso"
-    return redirect('/')
+    return render_template('index.html',msgbanco=mensagem)
     # Após o cadastro ser bem-sucedido, a página inicial é exibida.
 
 if __name__ == "__main__":
