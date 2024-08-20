@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, request,url_for
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import sessionmaker
@@ -78,13 +78,31 @@ def criar():
     # Cria uma nova instância de um objeto 'Aluno' (a classe 'Aluno' é refletida do banco de dados).
     # Essa instância é preenchida com os dados recebidos do formulário.
 
-    session.add(aluno)
-    session.commit()
-    # Adiciona o novo aluno ao banco de dados e salva as alterações usando 'session.add' e 'session.commit'.
+    try:
+      session.add(aluno) #  Adiciona um novo objeto aluno à sessão para ser inserido no banco de dados.
+      session.commit() # Confirma a transação, salvando as mudanças no banco de dados.
+    except:
+      session.rollback() # Desfaz qualquer mudança feita na sessão durante a transação, revertendo o banco de dados ao estado anterior.
+      raise # Relevanta a exceção original, permitindo que seja tratada em outro nível do código ou exibida como um erro
+    finally:
+       session.close() # Fecha a sessão, garantindo que os recursos sejam liberados, independentemente de a transação ter sido bem-sucedida ou não.
+ 
+    return redirect(url_for('listar_alunos'))
 
-    mensagem = "Cadastro efetuado com sucesso"
-    return render_template('index.html',msgbanco=mensagem)
-    # Após o cadastro ser bem-sucedido, a página inicial é exibida.
+@app.route('/alunos', methods=['GET'])
+def listar_alunos():
+    try:
+        # Busca todos os alunos cadastrados no banco de dados
+        alunos = session.query(Aluno).all()
+    except:
+        session.rollback()
+        mensagem = "Erro ao tentar recuperar a lista de alunos."
+        return render_template('index.html', msgbanco=mensagem)
+    finally:
+        session.close()
+
+    # Renderiza o template HTML passando a lista de alunos
+    return render_template('lista_alunos.html', alunos=alunos)
 
 if __name__ == "__main__":
     app.run(debug=True)
